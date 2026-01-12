@@ -28,12 +28,15 @@ export const useAuthStore = create<AuthState>((set) => ({
     });
 
     // 2. подписываемся на дальнейшие изменения
-    supabase.auth.onAuthStateChange((_event, newSession) => {
+    // В Supabase v2 onAuthStateChange возвращает { data: { subscription } }
+    const { data } = supabase.auth.onAuthStateChange((_event, newSession) => {
       set({
         session: newSession,
         user: newSession?.user ?? null,
       });
     });
+
+    // data.subscription можно сохранить/использовать для отписки при необходимости.
   },
 
   signOut: async () => {
