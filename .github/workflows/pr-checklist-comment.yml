@@ -1,0 +1,31 @@
+name: PR checklist comment
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  post-checklist:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Post PR checklist comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ### PR checklist
+            - [ ] Purpose (1-2 sentence summary)
+            - [ ] Files changed w/ reasons
+            - [ ] DB migrations added (if applicable) in `supabase/migrations/`
+            - [ ] Env/secrets listed and not committed
+            - [ ] Manual verification steps included
+            - [ ] Screenshots for UI changes
+            
+            If anything above is missing, please update the PR description.
