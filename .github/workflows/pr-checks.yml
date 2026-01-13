@@ -53,3 +53,12 @@ jobs:
         run: |
           echo "Listing supabase/migrations to help reviewers verify migrations were included if DB changes were made"
           ls -la supabase/migrations || true
+
+      - name: Post failure comment on PR
+        if: failure()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ⚠️ CI checks failed for this PR. Please review the workflow logs and fix the reported issues. If you need help, add a comment describing what failed and assign a reviewer.
