@@ -1,5 +1,5 @@
 import { Outlet, Link, Navigate, useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../features/auth/store/auth.store";
+import { useAuthStore } from "../../stores/auth.store";
 
 export function AppShell() {
   const nav = useNavigate();
