@@ -1,18 +1,36 @@
-# OS / editor
-.DS_Store
-.vscode/
-
-# Node
+# Dependencies
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+package-lock.json
 
-# Env
+# Build
+dist/
+build/
+out/
+
+# Test results
+test-results/
+playwright-report/
+
+# Environment
 .env
-.env.*
-!.env.example
+.env.local
 
-# Supabase local
-supabase/.temp/
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+
+# Documentation rules (не коммитим)
+.continue/
+
+# Test files (добавляем отдельно если нужны)
+# web/tests/
