@@ -6,7 +6,7 @@ type AuthState = {
   session: Session | null;
   user: User | null;
   isLoading: boolean;
-  init: () => Promise<void>;
+  init: () => Promise<() => void>;  // возвращает функцию для отписки
   signOut: () => Promise<void>;
 };
 
@@ -29,18 +29,25 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     // 2. подписываемся на дальнейшие изменения
     // В Supabase v2 onAuthStateChange возвращает { data: { subscription } }
-    const { data } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
       set({
         session: newSession,
         user: newSession?.user ?? null,
       });
     });
 
-    // data.subscription можно сохранить/использовать для отписки при необходимости.
+    // Возвращаем функцию для отписки
+    return () => {
+      subscription.unsubscribe();
+    };
   },
 
   signOut: async () => {
-    await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error("Sign out error:", error);
+      return;
+    }
     set({ session: null, user: null });
   },
 }));
