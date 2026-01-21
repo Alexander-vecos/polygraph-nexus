@@ -28,17 +28,24 @@ export function LoginPage() {
 
       <form onSubmit={onSubmit} style={{ display: "grid", gap: 8 }}>
         <input
+          id="email"
+          name="email"
+          type="email"
           placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           autoComplete="email"
+          required
         />
         <input
-          placeholder="password"
+          id="password"
+          name="password"
           type="password"
+          placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
+          required
         />
         <button type="submit">Sign in</button>
       </form>
