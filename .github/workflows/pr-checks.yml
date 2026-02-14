@@ -6,6 +6,13 @@ on:
       - 'web/**'
       - 'supabase/**'
       - '.github/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'web/**'
+      - 'supabase/**'
+      - '.github/**'
 
 jobs:
   build:
@@ -42,20 +49,20 @@ jobs:
         run: npm run test -- --run
         working-directory: web
 
-      - name: Root: Install dev dependencies (for supabase CLI)
+      - name: "Root: Install dev dependencies (for supabase CLI)"
         run: npm ci
 
       - name: Supabase CLI version
         run: npx supabase --version || echo "supabase CLI not available"
 
       - name: Supabase migrations presence check
-        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+        if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
         run: |
           echo "Listing supabase/migrations to help reviewers verify migrations were included if DB changes were made"
           ls -la supabase/migrations || true
 
       - name: Post failure comment on PR
-        if: failure()
+        if: failure() && github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
