@@ -1,4 +1,5 @@
 name: PR checks
+# Lint, build, and test the web application on PR
 
 on:
   pull_request:
