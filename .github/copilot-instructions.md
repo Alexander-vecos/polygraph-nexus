@@ -1,10 +1,4 @@
-## PolyGraph Nexus — Copilot instructions (concise)
-
-Purpose: give AI agents the exact, discoverable facts they need to make small, safe PRs in this repo.
-
-High-level: this repo is a PWA frontend (React + TypeScript + Vite) that talks to a Supabase backend (Postgres/Auth/Storage/Realtime).
-
-## PolyGraph Nexus — Copilot instructions (concise)
+## PolyGraph Nexus — Copilot instructions
 
 Purpose: Give AI agents the exact, discoverable facts needed to make small, safe PRs in this repo (frontend-first PWA with Supabase backend).
 
@@ -25,20 +19,62 @@ Key files & examples (what to touch in practice)
 - `web/src/features/*/*.usecases.ts` — domain use-cases live next to feature types (e.g., `features/chat/chat.usecases.ts`).
 - `supabase/migrations/*.sql` — DB schema is canonical; include SQL migrations for any schema changes.
 
-Developer workflows (quick commands)
-Run frontend dev (from repo root):
-```zsh
+## Code Standards
+
+### Required Before Each Commit
+- Run `cd web && npm run lint` to check for linting errors
+- Run `cd web && npm run test -- --run` to run tests
+- Ensure all tests pass before submitting changes
+
+## Repository Structure
+
+- `web/` - Frontend React/TypeScript PWA application
+  - `web/src/pages/` - Page components (route handlers)
+  - `web/src/features/` - Feature modules with domain logic
+  - `web/src/services/` - External service integrations (Supabase)
+  - `web/src/stores/` - Global state management (Zustand)
+  - `web/src/shared/` - Shared components and utilities
+  - `web/src/offline/` - PWA offline functionality
+- `supabase/` - Supabase backend configuration
+  - `supabase/migrations/` - Database schema migrations (SQL)
+  - `supabase/functions/` - Edge Functions (serverless)
+- `docs/` - Project documentation
+  - `docs/ARCHITECTURE.md` - System architecture
+  - `docs/PROJECT_OVERVIEW.md` - Domain model and MVP scope
+  - `docs/DATABASE_SCHEMA.md` - Database schema documentation
+- `.github/` - GitHub configuration
+  - `.github/copilot-instructions.md` - Repository-wide Copilot instructions
+  - `.github/instructions/` - Path-specific Copilot instructions
+
+### Developer workflows (quick commands)
+
+**Setup:**
+```bash
 cd web
 npm install
-npm run dev
 ```
-Build & preview:
-```zsh
+
+**Development:**
+```bash
 cd web
-npm run build
-npm run preview
+npm run dev        # Start dev server
+npm run lint       # Run ESLint
+npm run test       # Run tests with Vitest
 ```
-Local Supabase (use Supabase CLI): `supabase start`, `supabase db push`, `supabase migrate`.
+
+**Build & Preview:**
+```bash
+cd web
+npm run build      # TypeScript compile + Vite build
+npm run preview    # Preview production build locally
+```
+
+**Local Supabase (requires Supabase CLI):**
+```bash
+supabase start     # Start local Supabase instance
+supabase db push   # Apply migrations to local DB
+supabase migrate   # Manage migrations
+```
 
 Conventions & patterns (project-specific)
 - State: small logical stores use `zustand` (see `auth.store.ts`). Keep stores focused and testable.
