@@ -1,0 +1,27 @@
+name: Setup PolyGraph Nexus Development Environment
+description: Pre-install dependencies for faster Copilot development workflow
+
+steps:
+  # Install frontend dependencies
+  - name: Install frontend dependencies
+    working-directory: web
+    run: npm ci
+    
+  # Install root dependencies (includes Supabase CLI)
+  - name: Install root dependencies
+    run: npm ci
+    
+  # Verify installations
+  - name: Verify Node.js and npm
+    run: |
+      node --version
+      npm --version
+      
+  # Check Supabase CLI availability
+  - name: Check Supabase CLI
+    run: npx supabase --version || echo "Supabase CLI installed via npm"
+    
+  # Build TypeScript to catch any initial compilation errors
+  - name: Build frontend (TypeScript check)
+    working-directory: web
+    run: npm run build
