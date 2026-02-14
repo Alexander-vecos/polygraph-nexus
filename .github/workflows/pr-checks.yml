@@ -2,14 +2,17 @@ name: PR checks
 
 on:
   pull_request:
-    paths: &paths
+    paths:
       - 'web/**'
       - 'supabase/**'
       - '.github/**'
   push:
     branches:
       - main
-    paths: *paths
+    paths:
+      - 'web/**'
+      - 'supabase/**'
+      - '.github/**'
 
 jobs:
   build:
