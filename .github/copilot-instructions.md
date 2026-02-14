@@ -25,7 +25,7 @@ Purpose: Give AI agents the exact, discoverable facts needed to make small, safe
 ### Supabase Development
 - Local Supabase: `npx supabase start` (requires Docker)
 - Apply migrations: `npx supabase db push`
-- Create migration: `npx supabase migration new <name>`
+- Create migration: `npx supabase migration new <descriptive_name>`
 - Stop Supabase: `npx supabase stop`
 
 ## Repository Structure
@@ -71,7 +71,7 @@ npm run test     # Run tests with Vitest
 ```bash
 npx supabase start          # Start local Supabase (requires Docker)
 npx supabase db push        # Apply migrations to local database
-npx supabase migration new <name>  # Create new migration
+npx supabase migration new <descriptive_name>  # Create new migration
 npx supabase stop           # Stop local Supabase
 ```
 
