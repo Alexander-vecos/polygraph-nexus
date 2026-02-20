@@ -4,6 +4,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import SettingsPage from "./pages/SettingsPage";
+import { ProfilePage } from "./pages/ProfilePage";
 
 export const router = createBrowserRouter([
   { path: "/auth/login", element: <LoginPage /> },
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <DashboardPage /> },
       { path: "settings", element: <SettingsPage /> },
+      { path: "profile", element: <ProfilePage /> },
     ],
   },
   { path: "*", element: <LoginPage /> },
