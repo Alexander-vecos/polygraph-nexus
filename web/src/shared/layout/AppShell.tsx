@@ -19,6 +19,8 @@ export function AppShell() {
     <div style={{ padding: 16 }}>
       <header style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 16 }}>
         <Link to="/app">Dashboard</Link>
+        <Link to="/app/remote-support">Remote Support</Link>
+        <Link to="/app/settings">Settings</Link>
         <span style={{ opacity: 0.7 }}>{user?.email ?? "—"}</span>
         <button onClick={onLogout}>Logout</button>
       </header>
